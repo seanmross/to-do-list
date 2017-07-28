@@ -1,9 +1,9 @@
 class Api::ListsController < ApiController
   before_action :authenticated?
-  before_action :get_user, except: [:index]
+  before_action :get_user
 
   def index
-    lists = List.all
+    lists = @user.lists
     render json: lists, each_serializer: ListSerializer
   end
 
@@ -26,7 +26,7 @@ class Api::ListsController < ApiController
    if list.update(list_params)
      render json: list
    else
-     render json: { errors: list.errors }, status: :unprocessable_entity
+     render json: { errors: list.errors.full_messages }, status: :unprocessable_entity
    end
   end
 
@@ -46,7 +46,7 @@ class Api::ListsController < ApiController
   end
 
   def get_user
-    @user = User.find params[:user_id]
+    @user = User.find(params[:user_id])
   end
 
 end

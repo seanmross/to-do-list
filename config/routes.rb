@@ -6,15 +6,12 @@ Rails.application.routes.draw do
   #namespace separates API routes from rest of application routes
   namespace :api, defaults: { format: :json } do
     resources :users do
-      resources :lists, except: [:index]
+      resources :lists
     end
 
-    resources :lists, only: [:index] do
-      resources :items, only: [:create, :update, :show]
+    resources :lists do
+      resources :items, only: [:create, :index, :update]
     end
-
-    resources :items, only: [:destroy]
-
   end
 
 end
