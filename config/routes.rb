@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#about'
+  root to: 'application#angular'
   get 'welcome/about'
   get 'welcome/index'
 
